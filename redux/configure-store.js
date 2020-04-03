@@ -1,14 +1,21 @@
-import { createStore } from 'redux';
 import { applyMiddleware, createStore, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootReducer from './reducers';
 
-export default function configureStore(preloadedState) {
+const initialState = {
+  canvas: {
+    x: 0,
+    y: 0,
+  },
+  physicsObjects: [],
+};
+
+export default function configureStore() {
   const store = createStore(
     rootReducer,
-    preloadedState,
+    initialState,
     compose(compose(applyMiddleware([thunkMiddleware, composeWithDevTools])))
   );
 
