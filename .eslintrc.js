@@ -2,7 +2,8 @@ module.exports = {
   env: {
     es6: true,
     'jest/globals': true,
-    node: true
+    node: true,
+    browser: true
   },
   extends: [
     'airbnb',

@@ -1,3 +1,5 @@
+import Two from 'two.js';
+
 export interface Action {
   type: string;
   payload: unknown;
@@ -8,54 +10,64 @@ export interface ObjectState {
   position: Vector;
   acceleration: Vector;
   velocity: Vector;
-  mass: f64;
-  shape: Rectangle | Circle;
-  rotationAngle: f64;
-  angularVelocity: f64;
-  angularAcceleration: f64;
+  mass: number;
+  shape: Two.Rectangle | Two.Circle;
+  rotationAngle: number;
+  time: number;
+  two: Two;
 }
 
-export interface Rectangle {
-  topLeft: Vector;
-  topRight: Vector;
-  bottomLeft: Vector;
-  bottomRight: Vector;
-}
-
-export interface Circle {
-  radius: f64;
+export interface Body {
+  width: number;
+  height: number;
   location: Vector;
+  mass: number;
 }
 
 export interface Force extends Vector {
-  source: string;
+  source?: string;
 }
 
 export interface Vector {
-  x: f64;
-  y: f64;
+  x: number;
+  y: number;
 }
 
 export interface SecondLaw {
   force: Force[];
-  mass: f64;
+  mass: number;
 }
 
 export interface VelocityCalculation {
   originalVelocity: Vector;
-  time: f64;
+  time: number;
   previousAcceleration: Vector;
   newAcceleration: Vector;
 }
 
 export interface PositionCalculation {
   velocity: Vector;
-  time: f64;
+  time: number;
   acceleration: Vector;
 }
 
 export interface RotationCalculation {
   vertices: Vector[];
-  angle: f64;
+  angle: number;
   point: Vector;
+}
+
+export interface AngularVelocityCalculation {
+  changeInTime: number;
+  changeInAngle: number;
+}
+
+export interface LinearVelocityCalculation {
+  radius: number;
+  rotationalVelocity: Vector;
+}
+
+export interface CalculateRotationalVector {
+  mass: number;
+  velocity: Vector;
 }
