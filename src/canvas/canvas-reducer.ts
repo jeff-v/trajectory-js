@@ -16,18 +16,11 @@ export default function canvasReducer(
     case UPDATE_CIRCLE:
       return {
         ...state,
-        bodies: state.bodies.splice(
-          state.bodies.findIndex(body => body.label === action.payload.label),
-          1,
-          {
-            ...state.bodies[
-              state.bodies.findIndex(
-                body => body.label === action.payload.label
-              )
-            ],
-            ...action.payload,
-          }
-        ),
+        bodies: Object.assign([...state.bodies], {
+          [state.bodies.findIndex(
+            body => body.label === action.payload.label
+          )]: action.payload,
+        }),
       };
     default:
       return { ...state };

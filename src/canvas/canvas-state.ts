@@ -1,3 +1,5 @@
+import { CanvasBody } from '../store';
+
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 const context = canvas.getContext('2d') as CanvasRenderingContext2D;
 
@@ -25,7 +27,7 @@ interface InitialCanvasState {
   height: number;
   width: number;
   time: number;
-  bodies: CanvasBodies[];
+  bodies: CanvasBody[];
   drawFunction: () => void;
 }
 

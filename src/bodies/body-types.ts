@@ -1,8 +1,38 @@
-import Two from 'two.js';
-
 export interface Action {
   type: string;
   payload: unknown;
+}
+
+export interface PhysicsRectangle extends PhysicsBody {
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  momentsOfInertia?: {
+    center: number;
+    edge: number;
+  };
+}
+
+export interface PhysicsCircle extends PhysicsBody {
+  x?: number;
+  y?: number;
+  radius?: number;
+  momentsOfInertia: {
+    xAxis: ({ mass, radius }: { mass: number; radius: number }) => number;
+    yAxis: ({ mass, radius }: { mass: number; radius: number }) => number;
+    zAxis: ({ mass, radius }: { mass: number; radius: number }) => number;
+  };
+}
+export interface PhysicsBody {
+  forces?: Force[];
+  position?: Vector;
+  acceleration?: Vector;
+  velocity?: Vector;
+  mass?: number;
+  rotationAngle?: number;
+  time?: number;
+  label: string;
 }
 
 export interface ObjectState {
@@ -11,10 +41,9 @@ export interface ObjectState {
   acceleration: Vector;
   velocity: Vector;
   mass: number;
-  shape: Two.Rectangle | Two.Circle;
+  shape: PhysicsRectangle | PhysicsCircle;
   rotationAngle: number;
   time: number;
-  two: Two;
 }
 
 export interface Body {

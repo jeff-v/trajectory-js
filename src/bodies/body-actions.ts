@@ -1,4 +1,3 @@
-import Two, { Rectangle, Circle } from 'two.js';
 import store from '../store';
 
 import {
@@ -25,10 +24,10 @@ import {
   LinearVelocityCalculation,
   ObjectState,
   Vector,
+  PhysicsBody,
+  PhysicsRectangle,
+  PhysicsCircle,
 } from './body-types';
-import two from '../canvas/renderer';
-
-const state = store.getState();
 
 const { dispatch } = store;
 
@@ -124,74 +123,23 @@ export const updateLinearVelocity = ({
     },
   });
 
-interface NewBody {
-  forces?: Force[];
-  position?: Vector;
-  acceleration?: Vector;
-  velocity?: Vector;
-  mass?: number;
-  shape?: Rectangle | Circle;
-  rotationAngle?: number;
-  time?: number;
-  two?: Two;
-}
-
 export const newBody = ({
   forces = [{ x: 0, y: -9.81, source: 'gravity' }],
   position = { x: 0, y: 0 },
   acceleration = { x: 0, y: -9.81 },
   velocity = { x: 0, y: 0 },
   mass = 1,
-  shape = state.body.two.makeCircle(50, 50, 50),
   rotationAngle = 0,
   time = Date.now(),
-  two = state.body.two,
-}: NewBody): ObjectState => ({
+}: PhysicsBody) => ({
   forces,
   position,
   acceleration,
   velocity,
   mass,
-  shape,
   rotationAngle,
   time,
-  two,
 });
-
-interface NewRectangle extends NewBody {
-  x?: number;
-  y?: number;
-  width?: number;
-  height?: number;
-}
-
-interface NewCircle extends NewBody {
-  x?: number;
-  y?: number;
-  radius?: number;
-}
-
-export const newRectangle = ({
-  x = 50,
-  y = 50,
-  width = 50,
-  height = 50,
-}: NewRectangle): Action =>
-  dispatch({
-    type: NEW_SHAPE,
-    payload: newBody({
-      position: { x, y },
-      shape: state.body.two.makeRectangle(x, y, width, height),
-    }),
-  });
-
-export const newCircle = ({ x = 50, y = 50, radius = 50 }: NewCircle): Action =>
-  dispatch({
-    type: NEW_SHAPE,
-    payload: newBody({
-      shape: state.body.two.makeCircle(x, y, radius),
-    }),
-  });
 
 export const updateBody = () =>
   dispatch({

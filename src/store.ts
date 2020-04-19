@@ -1,4 +1,4 @@
-import { createStore, Store } from 'redux';
+import { createStore } from 'redux';
 import { devToolsEnhancer } from 'redux-devtools-extension';
 import rootReducer from './root-reducer';
 
@@ -29,6 +29,8 @@ interface InitialCanvasState {
 }
 
 const store = createStore(rootReducer, devToolsEnhancer({}));
+
+console.log(store);
 
 const draw = () => {
   const state = store.getState().canvas as InitialCanvasState;

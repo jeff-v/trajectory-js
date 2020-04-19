@@ -1,38 +1,43 @@
-export interface CanvasCircle {
+export interface CanvasRectangle {
   xPosition: number;
   yPosition: number;
-  radius: number;
+  width: number;
+  height: number;
   color?: string;
   context: CanvasRenderingContext2D;
   label: string;
 }
 
-export interface UpdateCanvasCircle {
+export interface CanvasUpdateRectangle {
   xPosition: number;
   yPosition: number;
-  radius: number;
+  width: number;
+  height: number;
   color?: string;
   label: string;
 }
 
-export default function canvasCircle({
+export default function rectangle({
   xPosition,
   yPosition,
-  radius,
-  color = 'black',
+  width,
   context,
+  height,
+  color = 'black',
   label,
-}: Circle) {
+}: CanvasRectangle): CanvasRectangle {
   context.beginPath();
-  context.arc(xPosition, yPosition, radius, 0, Math.PI * 2, true);
+  context.fillRect(xPosition, yPosition, width, height);
   // eslint-disable-next-line no-param-reassign
   context.fillStyle = color;
   context.fill();
   return {
     xPosition,
     yPosition,
-    radius,
+    width,
+    height,
     color,
     label,
+    context,
   };
 }

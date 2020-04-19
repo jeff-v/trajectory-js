@@ -53,7 +53,6 @@
   "dependencies": {
     "@assemblyscript/loader": "^0.9.4",
     "redux": "^4.0.5",
-    "shortid": "^2.2.15",
-    "two.js": "^0.7.0-stable.1"
+    "shortid": "^2.2.15"
   }
 }

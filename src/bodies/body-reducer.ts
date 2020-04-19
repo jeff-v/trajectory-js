@@ -1,5 +1,3 @@
-import Two from 'two.js';
-
 import {
   ADD_FORCE,
   UPDATE_ACCELERATION,
@@ -12,24 +10,7 @@ import {
 } from './body-action-types';
 
 import { Action, Force, ObjectState, Vector } from './body-types';
-
-const two = new Two({
-  width: 1440,
-  height: 900,
-  type: Two.Types.canvas,
-}).appendTo(document.body);
-
-export const initialState: ObjectState = {
-  forces: [{ x: 0, y: -9.81, source: 'gravity' }],
-  position: { x: 0, y: 0 },
-  acceleration: { x: 0, y: -9.81 },
-  velocity: { x: 0, y: 0 },
-  mass: 0,
-  shape: two.makeRectangle(50, 50, 50, 50),
-  rotationAngle: 0,
-  time: Date.now(),
-  two,
-};
+import initialState from './initial-state';
 
 // interface HalfStepVelocityCalculation {
 //   originalAcceleration: Vector;
@@ -122,11 +103,6 @@ export default function bodyReducer(
   action: Action
 ): ObjectState {
   const timeChange = Date.now() - state.time;
-  // const resolveForces = (forces: Force[]) =>
-  //   forces.reduce(({ x, y }, currentValue) => ({
-  //     x: x + currentValue.x,
-  //     y: y + currentValue.y,
-  //   }));
 
   switch (action.type) {
     case ADD_FORCE:
@@ -154,7 +130,6 @@ export default function bodyReducer(
         two: state.two.update(),
       };
     case UPDATE_BODY:
-      if (!state.two.playing) state.two.play();
       return {
         ...state,
         position: {
